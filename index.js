@@ -612,9 +612,11 @@ PreparedInfo.prototype.removeConnectionInfo = function (conId) {
  * Represents a error while trying to connect the pool, all the connections failed.
  */
 function PoolConnectionError(individualErrors) {
+  this.message = 'all connections failed: ' + individualErrors.join(', ');
   this.name = 'PoolConnectionError';
   this.info = 'Represents a error while trying to connect the pool, all the connections failed.';
   this.individualErrors = individualErrors;
+  Error.captureStackTrace(this, this.constructor);
 }
 util.inherits(PoolConnectionError, Error);
 
